@@ -15,12 +15,26 @@ def find_product(listing, products):
       product_rating = product_ratings[product_match['product_name']]
       product_ratings[product_match['product_name']] = {'product':product_rating['product'], 'rating':product_rating['rating'] + 1}
 
-  pairs = return_dict_pairs_sorted_descending(product_ratings)  
+  pairs = return_dict_pairs_sorted_descending(product_ratings)
   
   if(pairs[0][1] > 0):
-    return pairs[0][0]
+    potential_choices = list(filter(lambda x: x[1]!= 0, pairs))
+    
+    for potential_choice in potential_choices: 
+      if verify_model(potential_choice, listing_tags):
+        return potential_choice[0]
+    return None
   else:
     return None
+
+def verify_model(potential, listing_tags):
+  tags = []
+  model_stream = ''.join(potential[0]['model'].split())
+  listing_stream = ''.join(listing_tags)
+
+  if model_stream in listing_stream:
+    return True
+  return False
 
 def extract_listing_tags(listing):
   title = listing['title']
@@ -40,6 +54,7 @@ def extract_product_tags(product):
     product_tags.extend(model_tags)
   if 'family' in product:
     product_tags.extend(product['family'].split())
+
   return product_tags
 
 def return_dict_pairs_sorted_descending(product_ratings):
