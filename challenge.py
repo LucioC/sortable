@@ -93,31 +93,19 @@ def find_word_match_in_products(listing_tag, products):
       matches.append(product)
   return matches
 
-def read_products():
-  script_dir = os.path.dirname(__file__)
-  products_path = "products.txt"
-  products_path = os.path.join(script_dir, products_path)
+class FileReader:
+  def read_json_list(self,filename):
+    script_dir = os.path.dirname(__file__)
+    file_path = filename
+    file_path = os.path.join(script_dir, file_path)
 
-  products_file = open(products_path, 'r')
+    items_file = open(file_path, 'r')
 
-  products = []
-  for line in products_file:
-    product = json.loads(line)    
-    products.append(product)
+    items = []
+    for line in items_file:
+      item = json.loads(line)    
+      items.append(item)
 
-  products_file.close();
-  return products
+    items_file.close();
+    return items
 
-def read_listings():
-  script_dir = os.path.dirname(__file__)
-  listings_path = "listings.txt"
-  listings_path = os.path.join(script_dir, listings_path)
-  listings_file = open(listings_path, 'r')
-
-  listings = []
-  for line in listings_file:
-    listing = json.loads(line)    
-    listings.append(listing)
-
-  listings_file.close()
-  return listings
