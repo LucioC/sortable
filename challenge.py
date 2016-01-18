@@ -1,6 +1,21 @@
 import os
 import json
 
+def match_listings(listings, products):
+  result = {}
+
+  for listing in listings:
+    product = find_product(listing, products)
+    if product is not None:
+      name = product['product_name']
+      if name in result:
+        result[name].append(listing)
+      else:
+        result[name] = []
+        result[name].append(listing)       
+  
+  return result
+
 def find_product(listing, products):
 
   listing_tags = extract_listing_tags(listing)
@@ -30,11 +45,11 @@ def filter_by_model(pairs, listing_tags):
       return potential_choice[0]
   return None
 
-def verify_model(potential, listing_tags):
+def verify_model(potential_product, listing_tags):
   tags = []
 
-  model_stream = ''.join(potential[0]['model'].split())
-  listing_stream = ''.join(listing_tags[0:5])
+  model_stream = ''.join(potential_product[0]['model'].split())
+  listing_stream = ''.join(listing_tags[0:7])
 
   if model_stream in listing_stream:
     return True
