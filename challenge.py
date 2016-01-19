@@ -7,7 +7,7 @@ def match_listings(listings, products):
   for listing in listings:
     product = find_product(listing, products)
     if product is not None:
-      name = product['product_name']
+      name = product.name
       if name in result:
         result[name].append(listing)
       else:
@@ -18,17 +18,17 @@ def match_listings(listings, products):
 
 def find_product(listing, products):
 
-  listing_tags = extract_listing_tags(listing)
+  listing_tags = listing.extract_tags()
 
   product_ratings = {}
   for product in products:
-    product_ratings[product['product_name']] = {'product':product, 'rating':0}
+    product_ratings[product.name] = {'product':product, 'rating':0}
 
   for tag in listing_tags:
     product_matches = find_word_match_in_products(tag, products)
     for product_match in product_matches:
-      product_rating = product_ratings[product_match['product_name']]
-      product_ratings[product_match['product_name']] = {'product':product_rating['product'], 'rating':product_rating['rating'] + 1}
+      product_rating = product_ratings[product_match.name]
+      product_ratings[product_match.name] = {'product':product_rating['product'], 'rating':product_rating['rating'] + 1}
 
   pairs = return_dict_pairs_sorted_descending(product_ratings)
   
@@ -48,33 +48,12 @@ def filter_by_model(pairs, listing_tags):
 def verify_model(potential_product, listing_tags):
   tags = []
 
-  model_stream = ''.join(potential_product[0]['model'].split())
+  model_stream = ''.join(potential_product[0].model.split())
   listing_stream = ''.join(listing_tags[0:7])
 
   if model_stream in listing_stream:
     return True
   return False
-
-def extract_listing_tags(listing):
-  title = listing['title']
-  manufacturer = listing['manufacturer']
-  tags = []
-  tags.extend(title.split())
-  tags.extend(manufacturer.split())
-  return tags
-
-def extract_product_tags(product):
-  product_tags = []
-  if 'manufacturer' in product:
-    product_tags.extend(product['manufacturer'].split())
-  if 'model' in product:
-    model_tags = product['model'].split()
-    model_tags.append(''.join(model_tags))
-    product_tags.extend(model_tags)
-  if 'family' in product:
-    product_tags.extend(product['family'].split())
-
-  return product_tags
 
 def return_dict_pairs_sorted_descending(product_ratings):
   pairs = []
@@ -88,12 +67,96 @@ def return_dict_pairs_sorted_descending(product_ratings):
 def find_word_match_in_products(listing_tag, products):
   matches = []  
   for product in products:
-    product_tags = extract_product_tags(product)    
+    product_tags = product.extract_tags()
     if listing_tag in product_tags:
       matches.append(product)
   return matches
+  
+class Listing:
+  def __init__(self, title, manufacturer, currency, price):
+    self.title = title
+    self.manufacturer = manufacturer
+    self.currency = currency
+    self.price = price
+    self.tags = []
+    
+  def __eq__(self, other):
+    return (isinstance(other, self.__class__)
+      and self.title == other.title
+      and self.manufacturer == other.manufacturer
+      and self.currency == other.currency
+      and self.price == other.price)
+    
+  def extract_tags(self):
+    if not self.tags:
+      self.tags = self.extract_listing_tags()    
+    return self.tags
+    
+  def extract_listing_tags(self):
+    title = self.title
+    manufacturer = self.manufacturer
+    tags = []
+    tags.extend(title.split())
+    tags.extend(manufacturer.split())
+    return tags  
+    
+  @staticmethod
+  def create(json_object):
+    return Listing(json_object['title'],json_object['manufacturer'],json_object['currency'], json_object['price'])
+  
+class Product:
+  def __init__(self, name, manufacturer, model, family, announced_date):
+    self.name = name
+    self.manufacturer = manufacturer
+    self.model = model
+    self.family = family
+    self.announced_date = announced_date
+    self.tags = []
+    
+  def __eq__(self, other):
+    return (isinstance(other, self.__class__)
+      and self.name == other.name 
+      and self.manufacturer == other.manufacturer 
+      and self.model == other.model 
+      and self.family == other.family
+      and self.announced_date == other.announced_date)
+    
+  def extract_tags(self):
+    if not self.tags:
+      self.tags = self.extract_product_tags()    
+    return self.tags
+    
+  def extract_product_tags(self):
+    product_tags = []
+    product_tags.extend(self.manufacturer.split())
+    model_tags = self.model.split()
+    model_tags.append(''.join(model_tags))
+    product_tags.extend(model_tags)
+    product_tags.extend(self.family.split())
+    return product_tags
+      
+  @staticmethod
+  def create(json_object):
+    return Product(json_object['product_name'], json_object['manufacturer'], json_object['model'], json_object['family'] if 'family' in json_object else '', json_object['announced-date'])
 
 class FileReader:
+  
+  def read_listings(self, filename):
+    listings_json = self.read_json_list(filename)
+    listings = []
+    for listing_json in listings_json:
+      listings.append(Listing.create(listing_json))
+      
+    return listings
+  
+  def read_products(self, filename):
+    products_json = self.read_json_list(filename)
+    products = []
+    for product_json in products_json:
+      products.append(Product.create(product_json))
+      
+    return products
+  
   def read_json_list(self,filename):
     script_dir = os.path.dirname(__file__)
     file_path = filename
