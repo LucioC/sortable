@@ -9,10 +9,10 @@ def match_listings(listings, products):
     if product is not None:
       name = product.name
       if name in result:
-        result[name].append(listing)
+        result[name].append(listing.dict_without_tags())
       else:
         result[name] = []
-        result[name].append(listing)       
+        result[name].append(listing.dict_without_tags()) 
   
   return result
 
@@ -79,13 +79,16 @@ class Listing:
     self.currency = currency
     self.price = price
     self.tags = []
+  
+  def dict_without_tags(self):  
+    d = dict(self.__dict__)
+    if 'tags' in d:
+      del d['tags'] 
+    return d
     
   def __eq__(self, other):
     return (isinstance(other, self.__class__)
-      and self.title == other.title
-      and self.manufacturer == other.manufacturer
-      and self.currency == other.currency
-      and self.price == other.price)
+      and self.dict_without_tags() == other.dict_without_tags())
     
   def extract_tags(self):
     if not self.tags:
@@ -112,14 +115,16 @@ class Product:
     self.family = family
     self.announced_date = announced_date
     self.tags = []
+      
+  def dict_without_tags(self):  
+    d = dict(self.__dict__)
+    if 'tags' in d:
+      del d['tags'] 
+    return d
     
   def __eq__(self, other):
     return (isinstance(other, self.__class__)
-      and self.name == other.name 
-      and self.manufacturer == other.manufacturer 
-      and self.model == other.model 
-      and self.family == other.family
-      and self.announced_date == other.announced_date)
+      and self.dict_without_tags() == other.dict_without_tags())
     
   def extract_tags(self):
     if not self.tags:
