@@ -41,7 +41,8 @@ def filter_by_model(pairs, listing_tags):
   potential_choices = list(filter(lambda x: x[1]!= 0, pairs))
     
   for potential_choice in potential_choices: 
-    if verify_model(potential_choice, listing_tags):
+    #if has rating greater than 1 and model is present
+    if potential_choice[1] > 1 and verify_model(potential_choice, listing_tags):
       return potential_choice[0]
   return None
 

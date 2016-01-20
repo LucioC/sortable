@@ -79,6 +79,13 @@ class TestChallengeFindProductByListing(unittest.TestCase):
     listing = Listing.create({"title":"Nikon EN-EL9a 1080mAh Ultra High Capacity Li-ion Battery Pack for Nikon D40, D40x, D60, D3000, & D5000 Digital SLR Cameras","manufacturer":"Nikon","currency":"CAD","price":"29.75"})
     product = challenge.find_product(listing, products)    
     self.assertEqual(None, product)
+    
+  def test_dont_find_LeicaDigiluxZoom_WhenListingIsPanasonic(self):
+    reader = FileReader()
+    products = [Product.create({"product_name":"Leica_Digilux_Zoom","manufacturer":"Leica","model":"Zoom","family":"Digilux","announced-date":"2000-02-03T19:00:00.000-05:00"})]
+    listing = Listing.create({"currency": "CAD", "price": "489.95", "title": "Panasonic Lumix ZS10 Red 16x Zoom Taxes Included", "manufacturer": "Panasonic"})
+    product = challenge.find_product(listing, products)    
+    self.assertEqual(None, product)
 
 if __name__ == '__main__':
     unittest.main()
