@@ -1,14 +1,15 @@
 import os
 import json
-from challenge import FileReader, Product, Listing
+from challenge import FileReader, Product, Listing, MatchSearch
 import challenge
 
 reader = FileReader()
+search = MatchSearch()
 products = reader.read_products('products.txt');
 listings = reader.read_listings('listings.txt');
 listings = listings[0:1000]
 
-result = challenge.match_listings(listings, products)
+result = search.match_listings(listings, products)
 
 f = open('output.txt', 'w')
 
@@ -18,6 +19,10 @@ for key in key_list:
   f.write('\n')
   
 f.close()
+
+print(len(search.non_matches))
+#for non_match in search.non_matches[0:100]:
+#  print(non_match.dict_without_tags())
 
 
 

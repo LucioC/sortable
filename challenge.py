@@ -1,20 +1,26 @@
 import os
 import json
 
-def match_listings(listings, products):
-  result = {}
-
-  for listing in listings:
-    product = find_product(listing, products)
-    if product is not None:
-      name = product.name
-      if name in result:
-        result[name].append(listing.dict_without_tags())
-      else:
-        result[name] = []
-        result[name].append(listing.dict_without_tags()) 
+class MatchSearch:  
+  def __init__(self):
+    self.result = {}
+    self.non_matches = []
   
-  return result
+  def match_listings(self, listings, products):
+    self.result = {}
+    self.non_matches = []
+    for listing in listings:
+      product = find_product(listing, products)
+      if product is not None:
+        name = product.name
+        if name in self.result:
+          self.result[name].append(listing.dict_without_tags())
+        else:
+          self.result[name] = []
+          self.result[name].append(listing.dict_without_tags()) 
+      else:
+        self.non_matches.append(listing)
+    return self.result    
 
 def find_product(listing, products):
 

@@ -1,0 +1,54 @@
+{
+        "listings": [
+            {
+                "currency": "CAD",
+                "title": "Canon NB-7L Lithium-Ion Battery for G10, G11, G12 Cameras",
+                "manufacturer": "Canon",
+                "price": "44.99"
+            }
+        ],
+        "product_name": "Canon_PowerShot_G1"
+    },
+    
+    
+    {
+        "listings": [
+            {
+                "currency": "CAD",
+                "title": "Nikon EN-EL5 1100mAh Ultra High Capacity Li-ion Battery Pack for Nikon P100, P90, P80, P6000",
+                "manufacturer": "Nikon",
+                "price": "19.99"
+            }
+        ],
+        "product_name": "Nikon_Coolpix_100"
+    },
+    
+    
+    {
+        "listings": [
+            {
+                "currency": "CAD",
+                "title": "Panasonic Lumix FZ40 Black 24x Zoom Leica Lens Taxes Included!",
+                "manufacturer": "Panasonic",
+                "price": "469.95"
+            }
+        ],
+        "product_name": "Leica_Digilux_Zoom"
+    },
+    {
+        "listings": [
+            {
+                "currency": "CAD",
+                "title": "Canon EOS Rebel XS 10.1MP Digital SLR Camera with EF-S 18-55mm f/3.5-5.6 IS Lens (Black)",
+                "manufacturer": "Canon Canada",
+                "price": "774.71"
+            },
+            {
+                "currency": "CAD",
+                "title": "Canon EOS Rebel XS 10.1 MP Digital SLR Camera with 3X Optical zoom and 2.5-Inch TFT LCD (Black)",
+                "manufacturer": "Canon Canada",
+                "price": "448.00"
+            }
+        ],
+        "product_name": "Canon_PowerShot_S10"
+    },
