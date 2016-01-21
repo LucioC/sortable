@@ -6,11 +6,16 @@ class MatchSearch:
     self.result = {}
     self.non_matches = []
   
-  def match_listings(self, listings, products):
+  def match_listings(self, listings, products, debug=None):
     self.result = {}
     self.non_matches = []
+    count = 0
     for listing in listings:
       product = find_product(listing, products)
+      count += 1
+      if debug is not None:
+        debug(count)
+      
       if product is not None:
         name = product.name
         if name in self.result:
@@ -54,12 +59,16 @@ def filter_by_model(pairs, listing_tags):
 
 def verify_model(potential_product, listing_tags):
   tags = []
-
-  model_stream = ''.join(potential_product[0].model.split())
-  listing_stream = ''.join(listing_tags[0:7])
-
-  if model_stream in listing_stream:
-    return True
+  model_words = potential_product[0].model.split()
+  if len(model_words) > 1:
+    tags.append(''.join(model_words))
+  for word in model_words:
+    tags.append(word)
+  
+  for tag in tags:
+    if tag in listing_tags:
+      return True
+      
   return False
 
 def return_dict_pairs_sorted_descending(product_ratings):
@@ -106,7 +115,7 @@ class Listing:
     title = self.title
     manufacturer = self.manufacturer
     tags = []
-    tags.extend(title.split())
+    tags.extend(title.split()[0:5])
     tags.extend(manufacturer.split())
     return tags  
     
@@ -128,6 +137,9 @@ class Product:
     if 'tags' in d:
       del d['tags'] 
     return d
+    
+  def __repr__(self):
+    return json.dumps(self.__dict__)
     
   def __eq__(self, other):
     return (isinstance(other, self.__class__)

@@ -86,6 +86,31 @@ class TestChallengeFindProductByListing(unittest.TestCase):
     listing = Listing.create({"currency": "CAD", "price": "489.95", "title": "Panasonic Lumix ZS10 Red 16x Zoom Taxes Included", "manufacturer": "Panasonic"})
     product = challenge.find_product(listing, products)    
     self.assertEqual(None, product)
-
+    
+  def test_should_not_find_canonPowerShotG1_WhenListingIsCanonNB7LBattery(self):    
+    reader = FileReader()
+    products = [Product.create({"product_name":"Canon_PowerShot_G1","manufacturer":"Canon","model":"G1","family":"PowerShot","announced-date":"2000-09-17T20:00:00.000-04:00"})]
+    listing = Listing.create({
+                "currency": "CAD",
+                "title": "Canon NB-7L Lithium-Ion Battery for G10, G11, G12 Cameras",
+                "manufacturer": "Canon",
+                "price": "44.99"
+            })
+    product = challenge.find_product(listing, products)    
+    self.assertEqual(None, product)
+    
+  
+  def test_should_not_find_nikonCoolpix100_WhenListingIsNikonENEL51100maH(self):
+    reader = FileReader()
+    products = [Product.create({"product_name":"Nikon_Coolpix_100","manufacturer":"Nikon","model":"100","family":"Coolpix","announced-date":"1997-01-19T19:00:00.000-05:00"})]
+    listing = Listing.create({
+                "currency": "CAD",
+                "title": "Nikon EN-EL5 1100mAh Ultra High Capacity Li-ion Battery Pack for Nikon P100, P90, P80, P6000",
+                "manufacturer": "Nikon",
+                "price": "19.99"
+            })
+    product = challenge.find_product(listing, products)    
+    self.assertEqual(None, product)
+  
 if __name__ == '__main__':
     unittest.main()

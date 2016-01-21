@@ -9,7 +9,7 @@ products = reader.read_products('products.txt');
 listings = reader.read_listings('listings.txt');
 listings = listings[0:1000]
 
-result = search.match_listings(listings, products)
+result = search.match_listings(listings, products, debug = lambda c: print(c))
 
 f = open('output.txt', 'w')
 
