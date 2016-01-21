@@ -97,8 +97,7 @@ class TestChallengeFindProductByListing(unittest.TestCase):
                 "price": "44.99"
             })
     product = challenge.find_product(listing, products)    
-    self.assertEqual(None, product)
-    
+    self.assertEqual(None, product)    
   
   def test_should_not_find_nikonCoolpix100_WhenListingIsNikonENEL51100maH(self):
     reader = FileReader()
@@ -111,6 +110,18 @@ class TestChallengeFindProductByListing(unittest.TestCase):
             })
     product = challenge.find_product(listing, products)    
     self.assertEqual(None, product)
+  
+  def test_should_find_SonyW310_WhenListingIsSonyW310S(self):
+    reader = FileReader()
+    products = [Product.create({"product_name":"Sony_Cyber-shot_DSC-W310","manufacturer":"Sony","model":"DSC-W310","family":"Cyber-shot","announced-date":"2010-01-06T19:00:00.000-05:00"})]
+    listing = Listing.create({
+              "title":"Sony DSC-W310S Digitalkamera (12 Megapixel, 28mm Weitwinkelobjektiv mit 4fach optischem Zoom, 6,9 cm (2,7 Zoll) LC-Display) silber",
+              "manufacturer":"Sony",
+              "currency":"EUR",
+              "price":"65.99"
+              })
+    product = challenge.find_product(listing, products)    
+    self.assertEqual(products[0], product)
   
 if __name__ == '__main__':
     unittest.main()
