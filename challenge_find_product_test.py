@@ -122,6 +122,19 @@ class TestChallengeFindProductByListing(unittest.TestCase):
               })
     product = challenge.find_product(listing, products)    
     self.assertEqual(products[0], product)
+    
   
+  def test_should_not_find_OlympusC2100UZ_WhenListingIsOlympusUZSeries(self):
+    reader = FileReader()
+    products = [Product.create({"product_name":"Olympus_C-2100_UZ","manufacturer":"Olympus","model":"C-2100 UZ","announced-date":"2000-06-14T20:00:00.000-04:00"})]
+    listing = Listing.create({
+                "currency": "CAD",
+                "manufacturer": "Olympus",
+                "title": "Olympus UZ Series 14 MP 30 X",
+                "price": "257.87"
+              })
+    product = challenge.find_product(listing, products)    
+    self.assertEqual(None, product)
+    
 if __name__ == '__main__':
     unittest.main()

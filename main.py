@@ -20,9 +20,15 @@ for key in key_list:
   
 f.close()
 
-print(len(search.non_matches))
-#for non_match in search.non_matches[0:100]:
-#  print(non_match.dict_without_tags())
+print("non matches: " + str(len(search.non_matches)))
+
+f = open('output_non_matches.txt', 'w')
+
+for non_match in search.non_matches:
+  f.write(json.dumps(non_match.dict_without_tags()))
+  f.write('\n')
+  
+f.close()
 
 
 

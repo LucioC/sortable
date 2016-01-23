@@ -58,17 +58,22 @@ def filter_by_model(pairs, listing_tags):
   return None
 
 def verify_model(potential_product, listing_tags):
-  model_tags = []
-  model_words = potential_product[0].model.split()
-  if len(model_words) > 1:
-    model_tags.append(''.join(model_words))
-  for word in model_words:
-    model_tags.append(word)
-    
-  for tag in listing_tags:
-    for model_tag in model_tags:
-      if tag.startswith(model_tag):
+  model = potential_product[0].model
+  
+  split = model.split()
+  if len(split) == 1:
+    for tag in listing_tags:
+      if tag.startswith(model):
         return True
+  else:
+    join_model = ''.join(model.split())
+    for tag in listing_tags:
+      if tag.startswith(join_model):
+        return True
+    
+    listing_sentence = ' '.join(listing_tags)
+    if model in listing_sentence:
+      return True
       
   return False
 
