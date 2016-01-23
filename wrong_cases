@@ -54,3 +54,83 @@ FIRST TRY:
         ],
         "product_name": "Canon_PowerShot_S10"
     },
+
+
+SECOND TRY:
+1)
+This is the product "product_name":"Olympus_mju_Tough_3000" but the title does not contain the name mju. It seems to be an acceptable alternative name for the product.
+This could be improved by other means probably.
+{"manufacturer": "Olympus Canada", "title": "Olympus Stylus Tough 3000 12 MP Digital Camera with 3.6x Wide Angle Zoom and 2.7-inch LCD (Blue)", "price": "161.87", "currency": "CAD"}
+
+2)
+This:
+{"manufacturer": "Olympus Canada", "title": "Olympus TG-310 14 MP Digital Camera with 3.6x Optical Zoom, Waterproof, Shockproof, Freezer Proof (Red)", "price": "199.99", "currency": "CAD"}
+
+should be linked to this:
+{"product_name":"Olympus-TG310","manufacturer":"Olympus","model":"TG310","announced-date":"2011-02-15T19:00:00.000-05:00"}
+
+
+3)
+{"product_name":"Panasonic_Lumix_DMC-FZ40","manufacturer":"Panasonic","model":"DMC-FZ40","family":"Lumix","announced-date":"2010-07-16T20:00:00.000-04:00"}
+
+to:
+{"manufacturer": "Panasonic", "title": "Panasonic Lumix FZ40 Black 24x Zoom Leica Lens Taxes Included!", "price": "469.95", "currency": "CAD"}
+
+4)
+{"manufacturer": "Olympus Canada", "title": "Olympus SP-610 14 MP Digital Camera with 22x Optical Zoom, Magic Filter Still and Movie, HD Movie, Wi-Fi Compatibility, 3D Photos (Black)", "price": "199.99", "currency": "CAD"}
+
+to:
+{"product_name":"Olympus-SP610UZ","manufacturer":"Olympus","model":"SP-610 UZ","announced-date":"2011-02-15T19:00:00.000-05:00"}
+
+5)
+{"manufacturer": "Canon", "title": "Canon Powershot A3300 16 MP Digital Camera with 5x Optical Zoom (Black)", "price": "245.97", "currency": "CAD"}
+
+to:
+{"product_name":"Canon-A3300-IS","manufacturer":"Canon","model":"A3300 IS","family":"PowerShot","announced-date":"2011-01-04T19:00:00.000-05:00"}
+
+
+6)
+{"product_name":"Olympus_PEN_E-P2","manufacturer":"Olympus","model":"PEN E-P2","announced-date":"2009-11-04T19:00:00.000-05:00"}
+
+to:
+{"product_name":"Olympus_PEN_E-P2","manufacturer":"Olympus","model":"PEN E-P2","announced-date":"2009-11-04T19:00:00.000-05:00"}
+
+
+7)
+Not sure:
+{"product_name":"Olympus_PEN_E-PL1s","manufacturer":"Olympus","model":"PEN E-PL1s","announced-date":"2010-11-15T19:00:00.000-05:00"}
+to:
+{"manufacturer": "Olympus", "title": "Olympus E-PL1 BODY BLK", "price": "446.87", "currency": "CAD"}
+
+
+8)
+{"manufacturer": "Canon", "title": "12.1 Megapixel Powershot(r) Sx200 Is Digital Camera (black)", "price": "397.30", "currency": "CAD"}
+
+to:
+{"product_name":"Canon_PowerShot_SX200_IS","manufacturer":"Canon","model":"SX200 IS","family":"PowerShot","announced-date":"2009-02-17T19:00:00.000-05:00"}
+
+9)
+{"manufacturer": "Kodak", "title": "Kodak EasyShare Z1485 14MP Digital Camera with 5x Optical Image Stabilized Zoom and 2.5 inch LCD (Pink)", "price": "229.95", "currency": "CAD"}
+
+to:
+{"product_name":"Kodak_EasyShare_Z1485_IS","manufacturer":"Kodak","model":"Z1485 IS","family":"EasyShare","announced-date":"2009-01-07T19:00:00.000-05:00"}
+
+
+10)
+{"product_name":"Olympus-FE5030","manufacturer":"Olympus","model":"FE5030","announced-date":"2009-07-21T20:00:00.000-04:00"}
+
+to:
+{"manufacturer": "Olympus", "title": "Olympus FE 5030 Series 14 MP 5X", "price": "179.99", "currency": "CAD"}
+
+11)
+{"product_name":"Panasonic-ZS10","manufacturer":"Panasonic","model":"DMC-ZS10","family":"Lumix","announced-date":"2011-01-24T19:00:00.000-05:00"}
+
+to:
+{"manufacturer": "Panasonic", "title": "Panasonic Lumix ZS10 Blue 16x Zoom Taxes Included", "price": "489.95", "currency": "CAD"}
+
+
+12)
+{"manufacturer": "Sony", "title": "Sony DSC-W510B Black 12MP, 4x Zoom Digital Camera with 2.7\" Screen", "price": "129.99", "currency": "CAD"}
+
+to:
+{"product_name":"Sony-W510","manufacturer":"Sony","model":"W510","family":"Cybershot","announced-date":"2011-02-15T19:00:00.000-05:00"}
