@@ -94,8 +94,11 @@ def find_word_match_in_products(listing_tag, products):
       matches.append(product)
   return matches
   
+ignored = 'dmc'
 def prepare_string(s):
-  return s.translate(s.maketrans("", "", ",.-!"))
+  s = s.translate(s.maketrans("", "", ",.-!")).lower()
+  s = s.replace(ignored, '')
+  return s
   
 class Listing:
   def __init__(self, title, manufacturer, currency, price):

@@ -149,5 +149,18 @@ class TestChallengeFindProductByListing(unittest.TestCase):
     product = challenge.find_product(listing, products)    
     self.assertEqual(products[0], product)
     
+  def test_should_find_PanasonicFZ_40_WhenListingIsFZ40(self):
+    reader = FileReader()
+    products = [Product.create({"product_name":"Panasonic_Lumix_DMC-FZ40","manufacturer":"Panasonic","model":"DMC-FZ40","family":"Lumix","announced-date":"2010-07-16T20:00:00.000-04:00"})]
+    listing = Listing.create({
+                "manufacturer": "Panasonic", 
+                "title": "Panasonic Lumix FZ40 Black 24x Zoom Leica Lens Taxes Included!", 
+                "price": "469.95", 
+                "currency": "CAD"
+              })
+              
+    product = challenge.find_product(listing, products)    
+    self.assertEqual(products[0], product)
+    
 if __name__ == '__main__':
     unittest.main()
