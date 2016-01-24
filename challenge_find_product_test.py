@@ -136,5 +136,18 @@ class TestChallengeFindProductByListing(unittest.TestCase):
     product = challenge.find_product(listing, products)    
     self.assertEqual(None, product)
     
+  def test_should_not_find_OlympusC2100UZ_WhenListingIsOlympusUZSeries(self):
+    reader = FileReader()
+    products = [Product.create({"product_name":"Olympus-TG310","manufacturer":"Olympus","model":"TG310","announced-date":"2011-02-15T19:00:00.000-05:00"})]
+    listing = Listing.create({
+                "manufacturer": "Olympus Canada", 
+                "title": "Olympus TG-310 14 MP Digital Camera with 3.6x Optical Zoom, Waterproof, Shockproof, Freezer Proof (Red)", 
+                "price": "199.99", 
+                "currency": "CAD"
+              })
+              
+    product = challenge.find_product(listing, products)    
+    self.assertEqual(products[0], product)
+    
 if __name__ == '__main__':
     unittest.main()

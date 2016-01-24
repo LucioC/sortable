@@ -14,6 +14,7 @@ result = search.match_listings(listings, products, debug = lambda c: print(c))
 f = open('output.txt', 'w')
 
 key_list = list(result.keys())
+key_list = sorted(key_list,key=lambda s: s.lower())
 for key in key_list:
   f.write(json.dumps({ "product_name" : key, "listings" : result[key] }))
   f.write('\n')
@@ -29,6 +30,17 @@ for non_match in search.non_matches:
   f.write('\n')
   
 f.close()
+
+#verify solution
+to_verify_list = reader.read_json_list('correct_partial_solution.txt')
+
+not_on_list = []
+for correct in to_verify_list:
+  if correct['product_name'] not in key_list:
+    not_on_list.append(correct['product_name'])
+    
+for error in not_on_list:
+  print(error)
 
 
 

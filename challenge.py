@@ -145,7 +145,7 @@ class Product:
     return d
     
   def __repr__(self):
-    return json.dumps(self.__dict__)
+    return json.dumps(self.dict_without_tags())
     
   def __eq__(self, other):
     return (isinstance(other, self.__class__)
