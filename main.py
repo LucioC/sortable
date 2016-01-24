@@ -33,13 +33,26 @@ f.close()
 
 #verify solution
 to_verify_list = reader.read_json_list('correct_partial_solution.txt')
+products_expected = []
+for item in to_verify_list:
+  products_expected.append(item['product_name'])
 
-not_on_list = []
-for correct in to_verify_list:
-  if correct['product_name'] not in key_list:
-    not_on_list.append(correct['product_name'])
+expected_missing = []
+for correct in products_expected:
+  if correct not in key_list:
+    expected_missing.append(correct)
     
-for error in not_on_list:
+print("expected to be on output:")
+for error in expected_missing:
+  print(error)
+
+non_expected_list = [] 
+for o in key_list:
+  if o not in products_expected:
+    non_expected_list.append(o)
+
+print("Non expected to be on output:")
+for error in non_expected_list:
   print(error)
 
 
