@@ -136,7 +136,7 @@ class TestChallengeFindProductByListing(unittest.TestCase):
     product = challenge.find_product(listing, products)    
     self.assertEqual(None, product)
     
-  def test_should_not_find_OlympusC2100UZ_WhenListingIsOlympusUZSeries(self):
+  def test_should_find_OlympusTG310_WhenListingIsTG_310(self):
     reader = FileReader()
     products = [Product.create({"product_name":"Olympus-TG310","manufacturer":"Olympus","model":"TG310","announced-date":"2011-02-15T19:00:00.000-05:00"})]
     listing = Listing.create({

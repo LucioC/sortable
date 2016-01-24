@@ -58,7 +58,7 @@ def filter_by_model(pairs, listing_tags):
   return None
 
 def verify_model(potential_product, listing_tags):
-  model = potential_product[0].model
+  model = prepare_string(potential_product[0].model)
   
   split = model.split()
   if len(split) == 1:
@@ -94,6 +94,9 @@ def find_word_match_in_products(listing_tag, products):
       matches.append(product)
   return matches
   
+def prepare_string(s):
+  return s.translate(s.maketrans("", "", ",.-!"))
+  
 class Listing:
   def __init__(self, title, manufacturer, currency, price):
     self.title = title
@@ -118,8 +121,8 @@ class Listing:
     return self.tags
     
   def extract_listing_tags(self):
-    title = self.title
-    manufacturer = self.manufacturer
+    title = prepare_string(self.title)
+    manufacturer = prepare_string(self.manufacturer)
     tags = []
     tags.extend(title.split()[0:5])
     tags.extend(manufacturer.split())
@@ -158,11 +161,14 @@ class Product:
     
   def extract_product_tags(self):
     product_tags = []
-    product_tags.extend(self.manufacturer.split())
-    model_tags = self.model.split()
+    manufacturer = prepare_string(self.manufacturer)
+    family = prepare_string(self.family)
+    model = prepare_string(self.model)
+    product_tags.extend(manufacturer.split())
+    model_tags = model.split()
     model_tags.append(''.join(model_tags))
     product_tags.extend(model_tags)
-    product_tags.extend(self.family.split())
+    product_tags.extend(family.split())
     return product_tags
       
   @staticmethod
